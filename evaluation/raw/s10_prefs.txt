@@ -1,0 +1,62 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as sara "chicken karahi 1500"
+Saved note cli-0eccc31d8629 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - sara: recorded flatA-E001 [approved] Rs 1,500 meat, split between bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate add --flat flatA --as ali "I'm leaving the electricity split from November"
+Saved note cli-ada0f92bd165 from Ali. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C02:
+  - ali: preference change pref:2 proposed, waiting for approval
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate approve --flat flatA --as sara pref:2
+Approved pref:2.
+
+$ flatmate clock 2026-10-31
+Demo clock: 2026-10-31
+
+$ flatmate add --flat flatA --as sara "october electricity 3000"
+Saved note cli-8ce68c1d25f8 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-31 (memory on, email off)
+
+Cycle flatA-C03:
+  - sara: recorded flatA-E002 [approved] Rs 3,000 electricity, split between ali, bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate clock 2026-11-30
+Demo clock: 2026-11-30
+
+$ flatmate add --flat flatA --as sara "november electricity 3300"
+Saved note cli-8c19a4bdbf19 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-11-30 (memory on, email off)
+
+Cycle flatA-C04:
+  - sara: recorded flatA-E003 [approved] Rs 3,300 electricity, split between bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT

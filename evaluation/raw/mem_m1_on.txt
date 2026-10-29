@@ -1,0 +1,36 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as bilal "paid for dinner"
+Saved note cli-dc916f2031b1 from Bilal. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - bilal: asked question #1 to bilal: How much was dinner, and who should share the cost?
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate clock 2026-10-06
+Demo clock: 2026-10-06
+
+$ flatmate add --flat flatA --as bilal "it was 2400, me, sara and ali"
+Saved note cli-4ed1e6837c7e from Bilal. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-06 (memory on, email off)
+
+Cycle flatA-C02:
+  - bilal: recorded flatA-E001 [approved] Rs 2,400 dining, split between ali, bilal, sara (answers question #1)
+  - email sending skipped (--no-email); drafts stay UNSENT

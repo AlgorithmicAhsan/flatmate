@@ -1,0 +1,36 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as sara "electricity bill 6400"
+Saved note cli-88caa7ef2be5 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - sara: recorded flatA-E001 [pending] Rs 6,400 electricity, split between ali, bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate clock 2026-10-06
+Demo clock: 2026-10-06
+
+$ flatmate add --flat flatA --as bilal "electricity bill for october is 6400"
+Saved note cli-05d7f321335a from Bilal. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-06 (memory on, email off)
+
+Cycle flatA-C02:
+  - bilal: linked as bill evidence to flatA-E001 (not recorded again)
+  - email sending skipped (--no-email); drafts stay UNSENT

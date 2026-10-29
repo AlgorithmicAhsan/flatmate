@@ -1,0 +1,56 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as sara "paid 1800 for groceries"
+Saved note cli-c6d24b791400 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - sara: recorded flatA-E001 [approved] Rs 1,800 groceries, split between ali, bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate add --flat flatA --as bilal "paid for dinner"
+Saved note cli-7048fbd09570 from Bilal. It will be handled on the next run.
+
+$ flatmate add --flat flatA --as bilal "I paid sara 1000 back yesterday"
+Saved note cli-b566a4370c0d from Bilal. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C02:
+  - bilal: asked question #1 to bilal: How much was dinner, and who should share the cost?
+  - bilal: payment claim settle:1 recorded as unconfirmed; sara must confirm
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate approve --flat flatA --as bilal settle:1
+Refused: only the person who received the money can confirm it
+
+$ flatmate status --flat flatA
+== Flat A (flatA) on 2026-10-05 ==
+
+Balances (positive = is owed money):
+  Ali             -Rs 600
+  Bilal           -Rs 600
+  Sara           Rs 1,200
+
+Suggested settlement:
+  Bilal pays Sara Rs 600
+  Ali pays Sara Rs 600
+
+Waiting for approval: 0 expense(s), 0 preference change(s), 1 payment claim(s)
+Open questions: 1
+Notes not yet handled: 0

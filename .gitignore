@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# Local databases and checkpoints (recreated by the scripts)
+data/
+
+# The assignment brief is not part of the submission
+*.docx

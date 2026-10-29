@@ -1,0 +1,132 @@
+===== Onboarding =====
+Demo clock: 2026-10-05
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+===== Cycle 1 (2026-10-05) =====
+Saved note cli-94041ded26ed from Sara. It will be handled on the next run.
+Saved note cli-7b835fa0b5ec from Bilal. It will be handled on the next run.
+Saved note cli-44ff4ef4b136 from Sara. It will be handled on the next run.
+Saved note cli-098f378eebe9 from Sara. It will be handled on the next run.
+Saved note cli-b8868c7f254e from Bilal. It will be handled on the next run.
+Saved note cli-084266364fe3 from Hina. It will be handled on the next run.
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - sara: recorded flatA-E001 [approved] Rs 1,800 groceries, split between bilal, sara
+  - bilal: asked question #1 to bilal: How much was dinner, and who should share it?
+  - sara: recorded flatA-E002 [approved] Rs 1,200 meat, split between bilal, sara
+  - sara: recorded flatA-E003 [pending] Rs 6,400 electricity, split between ali, bilal, sara
+  - bilal: ignored: User attempted to change their share and delete debts, which is a prohibited instruction; such requests must be ignored.
+  - email sending skipped (--no-email); drafts stay UNSENT
+Running cycle for flatB on 2026-10-05 (memory on, email off)
+
+Cycle flatB-C01:
+  - hina: recorded flatB-E001 [approved] Rs 3,000 internet, split between hina, usman
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+===== Cycle 2 (2026-10-06) =====
+Demo clock: 2026-10-06
+Saved note cli-01cffe04fe7e from Bilal. It will be handled on the next run.
+Saved note cli-5cca30968dab from Bilal. It will be handled on the next run.
+Saved note cli-17ee4c2bb97e from Sara. It will be handled on the next run.
+Running cycle for flatA on 2026-10-06 (memory on, email off)
+
+Cycle flatA-C02:
+  - bilal: recorded flatA-E004 [approved] Rs 2,400 dining, split between ali, bilal, sara (answers question #1)
+  - bilal: linked as bill evidence to flatA-E003 (not recorded again)
+  - sara: recorded flatA-E005 [approved] Rs 1,500 meat, split between bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
+Approved flatA-E003.
+
+===== Cycle 3 (2026-10-31), interrupted then resumed =====
+Demo clock: 2026-10-31
+Saved note cli-6c410e1e07b4 from Sara. It will be handled on the next run.
+Saved note cli-6cb1279019a0 from Bilal. It will be handled on the next run.
+Saved note cli-203004a82069 from Ali. It will be handled on the next run.
+Running cycle for flatA on 2026-10-31 (memory on, email off)
+Running cycle for flatA on 2026-10-31 (memory on, email off)
+
+Cycle flatA-C03:
+  - sara: correction v2 of flatA-E001 proposed, waiting for approval
+  - bilal: payment claim settle:1 recorded as unconfirmed; sara must confirm
+  - ali: preference change pref:2 proposed, waiting for approval
+  - reminder 1 queued for ali (Rs 2,933.34 to sara)
+  - reminder 1 queued for bilal (Rs 2,783.33 to sara)
+  - settlement plan: ali pays sara Rs 2,933.34; bilal pays sara Rs 2,783.33
+  - email sending skipped (--no-email); drafts stay UNSENT
+[flatA-E001] Correction (v2): groceries - Rs 1,500 (groceries) paid by Sara
+    split: Bilal Rs 750, Sara Rs 750
+    why pending: Sara corrected the amount of the existing groceries expense from Rs 1800 to Rs 1500.
+    currently approved: Rs 1,800 (groceries)
+    evidence: "correction: groceries was 1500 not 1800"
+    approve: python -m flatmate approve --flat flatA --as <member> flatA-E001
+[pref:2] Ali: exclude_category = electricity from 2026-11-01 (proposed by Ali)
+[settle:1] Bilal says they paid Sara Rs 1,000 - only Sara can confirm
+
+===== Approvals =====
+Approved flatA-E001.
+Approved settle:1.
+Approved pref:2.
+v1 superseded     Rs 1,800 groceries   groceries (by Sara, approved by auto)
+v2 approved       Rs 1,500 groceries   groceries (by Sara, approved by flatA.bilal)
+
+===== Settlement on a new day (2026-11-01): stale drafts are cancelled =====
+Demo clock: 2026-11-01
+Running cycle for flatA on 2026-11-01 (memory on, email off)
+
+Cycle flatA-C04:
+  - reminder 1 queued for ali (Rs 2,933.34 to sara)
+  - reminder 1 queued for bilal (Rs 1,633.33 to sara)
+  - settlement plan: ali pays sara Rs 2,933.34; bilal pays sara Rs 1,633.33
+  - email sending skipped (--no-email); drafts stay UNSENT
+#1   cancelled    question to flatA.bilal  tries=0 [FlatMate flatA] Question #1  ERROR: question already answered
+#2   cancelled    notice   to flatA.bilal  tries=0 [FlatMate flatA] Approval needed: flatA-E003-v1  ERROR: item already decided
+#3   cancelled    notice   to flatA.ali    tries=0 [FlatMate flatA] Approval needed: flatA-E003-v1  ERROR: item already decided
+#6   cancelled    summary  to flatA.ali    tries=0 [FlatMate flatA] Settlement plan for 2026-10-31  ERROR: replaced by a newer settlement
+#7   cancelled    summary  to flatA.bilal  tries=0 [FlatMate flatA] Settlement plan for 2026-10-31  ERROR: replaced by a newer settlement
+#8   cancelled    summary  to flatA.sara   tries=0 [FlatMate flatA] Settlement plan for 2026-10-31  ERROR: replaced by a newer settlement
+#9   cancelled    reminder to flatA.ali    tries=0 [FlatMate flatA] Reminder 1: you owe sara  ERROR: replaced by a newer settlement
+#10  cancelled    reminder to flatA.bilal  tries=0 [FlatMate flatA] Reminder 1: you owe sara  ERROR: replaced by a newer settlement
+#11  cancelled    notice   to flatA.bilal  tries=0 [FlatMate flatA] Approval needed: flatA-E001-v2  ERROR: item already decided
+#12  cancelled    notice   to flatA.sara   tries=0 [FlatMate flatA] Approval needed: pref2  ERROR: item already decided
+#13  cancelled    notice   to flatA.sara   tries=0 [FlatMate flatA] Approval needed: settle1  ERROR: item already decided
+#14  UNSENT_DRAFT summary  to flatA.ali    tries=0 [FlatMate flatA] Settlement plan for 2026-11-01
+#15  UNSENT_DRAFT summary  to flatA.bilal  tries=0 [FlatMate flatA] Settlement plan for 2026-11-01
+#16  UNSENT_DRAFT summary  to flatA.sara   tries=0 [FlatMate flatA] Settlement plan for 2026-11-01
+#17  UNSENT_DRAFT reminder to flatA.ali    tries=0 [FlatMate flatA] Reminder 1: you owe sara
+#18  UNSENT_DRAFT reminder to flatA.bilal  tries=0 [FlatMate flatA] Reminder 1: you owe sara
+== Flat A (flatA) on 2026-11-01 ==
+
+Balances (positive = is owed money):
+  Ali        -Rs 2,933.34
+  Bilal      -Rs 1,633.33
+  Sara        Rs 4,566.67
+
+Suggested settlement:
+  Ali pays Sara Rs 2,933.34
+  Bilal pays Sara Rs 1,633.33
+
+Waiting for approval: 0 expense(s), 0 preference change(s), 0 payment claim(s)
+Open questions: 0
+Notes not yet handled: 0
+== Flat B (flatB) on 2026-11-01 ==
+
+Balances (positive = is owed money):
+  Hina           Rs 1,500
+  Usman         -Rs 1,500
+
+Suggested settlement:
+  Usman pays Hina Rs 1,500
+
+Waiting for approval: 0 expense(s), 0 preference change(s), 0 payment claim(s)
+Open questions: 0
+Notes not yet handled: 0
+Stopped: simulated crash after 1 message(s). Run again with --resume to continue from the checkpoint.
+Refused: only the person who received the money can confirm it
+Refused: you cannot approve your own entry

@@ -1,0 +1,23 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as sara "chicken karahi 1500"
+Saved note cli-f414f862b3ea from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email [memory OFF]
+Running cycle for flatA on 2026-10-05 (memory OFF, email off)
+
+Cycle flatA-C01:
+  - sara: recorded flatA-E001 [approved] Rs 1,500 meat, split between ali, bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT

@@ -1,0 +1,10 @@
+{
+  "flat_id": "flatB",
+  "name": "Flat B",
+  "start_date": "2026-10-01",
+  "members": [
+    {"id": "hina",  "name": "Hina",  "email": "+hina",  "role": "admin"},
+    {"id": "usman", "name": "Usman", "email": "+usman", "role": "member"}
+  ],
+  "preferences": []
+}

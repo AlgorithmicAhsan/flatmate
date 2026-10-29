@@ -1,0 +1,64 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as sara "paid 1200 for groceries"
+Saved note cli-8d1d0ccc0f14 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - sara: LLM unavailable (Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_requ); message kept for the next run
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C02:
+  - sara: recorded flatA-E001 [approved] Rs 1,200 groceries, split between ali, bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C03:
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate add --flat flatA --as sara "paid for the cleaner"
+Saved note cli-05d473c97453 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --simulate-email-failure
+Running cycle for flatA on 2026-10-05 (memory on, email on)
+
+Cycle flatA-C04:
+  - sara: asked question #1 to sara: How much was the cleaning expense, and does anyone not share it?
+  - emails sent: 0, failed: 1 (kept in outbox for retry)
+
+$ flatmate run --flat flatA --simulate-email-failure
+Running cycle for flatA on 2026-10-05 (memory on, email on)
+
+Cycle flatA-C05:
+  - emails sent: 0, failed: 1 (kept in outbox for retry)
+
+$ flatmate run --flat flatA
+Running cycle for flatA on 2026-10-05 (memory on, email on)
+
+Cycle flatA-C06:
+  - emails sent: 1, failed: 0
+
+$ flatmate run --flat flatA
+Running cycle for flatA on 2026-10-05 (memory on, email on)
+
+Cycle flatA-C07:
+  - emails sent: 0, failed: 0

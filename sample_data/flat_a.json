@@ -1,0 +1,13 @@
+{
+  "flat_id": "flatA",
+  "name": "Flat A",
+  "start_date": "2026-10-01",
+  "members": [
+    {"id": "sara",  "name": "Sara",  "email": "+sara",  "role": "admin"},
+    {"id": "bilal", "name": "Bilal", "email": "$BILAL_EMAIL", "role": "member"},
+    {"id": "ali",   "name": "Ali",   "email": "+ali",   "role": "member"}
+  ],
+  "preferences": [
+    {"member": "ali", "key": "exclude_category", "value": "meat", "note": "vegetarian"}
+  ]
+}

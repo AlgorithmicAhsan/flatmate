@@ -1,0 +1,74 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as sara "paid 1800 for groceries"
+Saved note cli-fafb092d0cd3 from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - sara: recorded flatA-E001 [approved] Rs 1,800 groceries, split between ali, bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate clock 2026-10-06
+Demo clock: 2026-10-06
+
+$ flatmate add --flat flatA --as sara "correction: groceries was 1500 not 1800"
+Saved note cli-c002ce0da39b from Sara. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-06 (memory on, email off)
+
+Cycle flatA-C02:
+  - sara: correction v2 of flatA-E001 proposed, waiting for approval
+  - email sending skipped (--no-email); drafts stay UNSENT
+
+$ flatmate status --flat flatA
+== Flat A (flatA) on 2026-10-06 ==
+
+Balances (positive = is owed money):
+  Ali             -Rs 600
+  Bilal           -Rs 600
+  Sara           Rs 1,200
+
+Suggested settlement:
+  Bilal pays Sara Rs 600
+  Ali pays Sara Rs 600
+
+Waiting for approval: 1 expense(s), 0 preference change(s), 0 payment claim(s)
+Open questions: 0
+Notes not yet handled: 0
+
+$ flatmate approve --flat flatA --as sara flatA-E001
+Refused: you cannot approve your own entry
+
+$ flatmate approve --flat flatA --as bilal flatA-E001
+Approved flatA-E001.
+
+$ flatmate status --flat flatA
+== Flat A (flatA) on 2026-10-06 ==
+
+Balances (positive = is owed money):
+  Ali             -Rs 500
+  Bilal           -Rs 500
+  Sara           Rs 1,000
+
+Suggested settlement:
+  Bilal pays Sara Rs 500
+  Ali pays Sara Rs 500
+
+Waiting for approval: 0 expense(s), 0 preference change(s), 0 payment claim(s)
+Open questions: 0
+Notes not yet handled: 0

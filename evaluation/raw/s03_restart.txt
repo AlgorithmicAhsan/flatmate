@@ -1,0 +1,39 @@
+$ flatmate clock 2026-10-05
+Demo clock: 2026-10-05
+
+$ flatmate onboard sample_data/flat_a.json
+Onboarded flatA:
+  ali      Ali      member  inbox+ali@gmail.com
+  bilal    Bilal    member  inbox+bilal@gmail.com
+  sara     Sara     admin   inbox+sara@gmail.com
+
+$ flatmate onboard sample_data/flat_b.json
+Onboarded flatB:
+  hina     Hina     admin   inbox+hina@gmail.com
+  usman    Usman    member  inbox+usman@gmail.com
+
+$ flatmate add --flat flatA --as sara "paid 900 for groceries"
+Saved note cli-538b949985a4 from Sara. It will be handled on the next run.
+
+$ flatmate add --flat flatA --as bilal "paid 600 for milk and eggs"
+Saved note cli-12637c7d6d9e from Bilal. It will be handled on the next run.
+
+$ flatmate add --flat flatA --as ali "internet bill 3000"
+Saved note cli-b56694cf54cd from Ali. It will be handled on the next run.
+
+$ flatmate run --flat flatA --no-email --crash-after 1
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+Stopped: simulated crash after 1 message(s). Run again with --resume to continue from the checkpoint.
+
+$ flatmate run --flat flatA --no-email
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+Refused: cycle flatA-C01 was interrupted; run again with --resume
+
+$ flatmate run --flat flatA --no-email --resume
+Running cycle for flatA on 2026-10-05 (memory on, email off)
+
+Cycle flatA-C01:
+  - sara: recorded flatA-E001 [approved] Rs 900 groceries, split between ali, bilal, sara
+  - bilal: recorded flatA-E002 [approved] Rs 600 groceries, split between ali, bilal, sara
+  - ali: recorded flatA-E003 [approved] Rs 3,000 internet, split between ali, bilal, sara
+  - email sending skipped (--no-email); drafts stay UNSENT
